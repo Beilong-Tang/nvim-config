@@ -1,12 +1,5 @@
 local servers = {
-	"sumneko_lua",
-	"cssls",
-	"html",
-	"tsserver",
-	"pyright",
-	"bashls",
-	"jsonls",
-	"yamlls",
+	"pyright", "csharp_ls", "clangd"
 }
 
 local settings = {
@@ -50,3 +43,12 @@ for _, server in pairs(servers) do
 
 	lspconfig[server].setup(opts)
 end
+
+-- pyright settings
+-- local lspconfig = require('lspconfig')
+
+-- lspconfig.pyright.setup({
+--   root_dir = function(fname)
+--     return vim.loop.cwd() -- Keeps the root directory fixed to the current working directory
+--   end,
+-- })
