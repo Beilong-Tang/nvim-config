@@ -7,6 +7,11 @@ comment.setup {
   pre_hook = function(ctx)
     local U = require "Comment.utils"
 
+    -- Override commentstring for Python
+    if vim.bo.filetype == "python" then
+      return "# %s"
+    end
+
     local location = nil
     if ctx.ctype == U.ctype.block then
       location = require("ts_context_commentstring.utils").get_cursor_location()
