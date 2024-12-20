@@ -56,3 +56,10 @@ Next we need to install python support (node is optional)
   ```
   npm i -g neovim
   ```
+
+## TroubleShoort
+
+
+1. If on a server, you have to config `clipboard-osc52`.
+
+2. If `pyright` does not work, just upload the node js version to 18.12.1

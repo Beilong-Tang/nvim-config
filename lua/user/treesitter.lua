@@ -19,3 +19,4 @@ configs.setup {
   },
 }
 
+vim.cmd([[ autocmd BufRead,BufNewFile *.slurm,*.sbatch setfiletype sh ]])
