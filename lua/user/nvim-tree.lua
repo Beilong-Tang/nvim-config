@@ -57,7 +57,7 @@ nvim_tree.setup({
     },
     git = {
         enable = false,
-        timeout = 400,
+        -- timeout = 400,
     },
     view = {
         width = 30,
@@ -79,14 +79,14 @@ nvim_tree.setup({
         --[[ window_picker = { enable = true }, ]]
     },
     renderer = {
-        highlight_git = true,
+        highlight_git = false,
         root_folder_modifier = ":t",
         icons = {
             show = {
                 file = true,
                 folder = true,
                 folder_arrow = true,
-                git = true,
+                git = false,
             },
             glyphs = {
                 default = "",
