@@ -24,4 +24,6 @@ vim.api.nvim_create_user_command('Black', function()
   
   -- Map <leader>b to the Black command in normal mode
   vim.api.nvim_set_keymap('n', '<leader>b', ':Black<CR>', { noremap = true, silent = true })
+
+vim.o.fileformat = "unix"
   
