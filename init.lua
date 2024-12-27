@@ -31,10 +31,24 @@ vim.api.nvim_set_keymap('n', '<leader>b', ':Black<CR>', { noremap = true, silent
 
 
 -- check if to use ssh
+local function is_win()
+  return package.config:sub(1, 1) == '\\'
+end
+
+local script_dir = debug.getinfo(1, "S").source:sub(2)
+local parent_dir = ""
+local config_path = ""
+
+local x = is_win()
+if x then 
+  parent_dir = script_dir:match("^(.-)\\[^\\]*$")
+  config_path = parent_dir .. "\\config.conf"
+else
+  parent_dir = script_dir:match("^(.-)/[^/]*$")
+  config_path = parent_dir .. "/config.conf"
+end 
+
 local config_module = require("utils.read_config")
--- Use the 'read_config' function from the imported module
-local script_dir = debug.getinfo(1, "S").source:match("@(.*)/.*")
-local config_path = script_dir .. "/config.conf"
 local config = config_module.read_config(config_path)
 
 if config['env'] == 'ssh' then
