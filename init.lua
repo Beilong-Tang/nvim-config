@@ -27,3 +27,15 @@ vim.api.nvim_create_user_command('Black', function()
 
 vim.o.fileformat = "unix"
   
+vim.api.nvim_set_keymap('n', '<leader>b', ':Black<CR>', { noremap = true, silent = true })
+vim.g.clipboard = {
+      name = 'OSC 52',
+      copy = {
+        ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+        ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+      },
+      paste = {
+        ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+        ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+      },
+    }
