@@ -28,17 +28,26 @@ vim.api.nvim_create_user_command('Black', function()
 vim.o.fileformat = "unix"
   
 vim.api.nvim_set_keymap('n', '<leader>b', ':Black<CR>', { noremap = true, silent = true })
-vim.g.clipboard = {
-      name = 'OSC 52',
-      copy = {
-        ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-        ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-      },
-      paste = {
-        ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-        ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-      },
-    }
+
+
+-- check if to use ssh
+local config_module = require("utils.read_config")
+-- Use the 'read_config' function from the imported module
+local config = config_module.read_config("config.conf")
+
+if config['env'] == 'ssh' then
+  vim.g.clipboard = {
+        name = 'OSC 52',
+        copy = {
+          ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+          ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+        },
+        paste = {
+          ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+          ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+        },
+      }
+end
 
 -- Function to surround the comment with hashes and replace any existing borders
 vim.api.nvim_set_keymap('n', '<F3>', ':lua SurroundCommentWithHashes()<CR>', { noremap = true, silent = true })
