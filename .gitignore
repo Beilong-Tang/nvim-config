@@ -40,6 +40,6 @@ luac.out
 *.hex
 
 # config
-config.conf
+./config.conf
 
 plugin/packer_compiled.lua
