@@ -33,7 +33,9 @@ vim.api.nvim_set_keymap('n', '<leader>b', ':Black<CR>', { noremap = true, silent
 -- check if to use ssh
 local config_module = require("utils.read_config")
 -- Use the 'read_config' function from the imported module
-local config = config_module.read_config("config.conf")
+local script_dir = debug.getinfo(1, "S").source:match("@(.*)/.*")
+local config_path = script_dir .. "/config.conf"
+local config = config_module.read_config(config_path)
 
 if config['env'] == 'ssh' then
   vim.g.clipboard = {
