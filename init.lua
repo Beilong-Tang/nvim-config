@@ -109,3 +109,4 @@ function SurroundCommentWithHashes()
 end
 
 vim.api.nvim_create_user_command('Format', ':%s/\\r//g | w', {})
+-- test
