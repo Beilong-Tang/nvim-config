@@ -35,8 +35,8 @@ local options = {
   sidescrolloff = 8,
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
   linebreak = true,
-  fileformat = "unix",
-  fileformats = {"unix"}
+  fileformat = "unix",                     -- File is always saved in unix style
+  fileformats = {"unix", "dos"}            -- File is read in Unix and Dos way (Proper handling windows files as well as unix files)
 }
 
 vim.opt.shortmess:append "c"

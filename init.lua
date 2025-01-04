@@ -107,3 +107,5 @@ function SurroundCommentWithHashes()
         print("Not a comment line.")  -- Debugging output
     end
 end
+
+vim.api.nvim_create_user_command('Format', ':%s/\\r//g | w', {})
