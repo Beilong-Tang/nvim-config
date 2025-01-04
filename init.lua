@@ -13,7 +13,7 @@ require "user.lualine"
 require "user.toggleterm"
 require "user.nvim-tree"
 require "user.lsp"
-require "user.gitsigns"
+-- require "user.gitsigns"
 
 -- formatting for python
 -- Define a function to run 'black' on the current file

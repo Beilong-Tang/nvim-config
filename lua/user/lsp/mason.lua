@@ -1,5 +1,5 @@
 local servers = {
-	"pyright", "csharp_ls", "clangd"
+	"pyright","bashls" 
 }
 
 local settings = {
