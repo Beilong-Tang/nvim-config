@@ -16,5 +16,5 @@ require "user.lsp"
 require "user.black"
 
 -- If on a server, can enable this 
--- require "user.gitsigns" -- # This is disabled due to performance issues on local machine. It should be fine on server.
--- require "user.server" -- # Enable copy on a server
+require "user.gitsigns" -- # This is disabled due to performance issues on local machine. It should be fine on server.
+require "user.server" -- # Enable copy on a server
