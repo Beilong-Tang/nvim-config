@@ -20,9 +20,9 @@ require "user.black"
 -- require "user.server" -- # Enable copy on a server
 
 
-require("catppuccin").setup({
-    no_italic = true, -- Force no italic
-})
+-- require("catppuccin").setup({
+--     no_italic = true, -- Force no italic
+-- })
 
--- setup must be called before loading
-vim.cmd.colorscheme "catppuccin-latte"
+-- -- setup must be called before loading
+-- vim.cmd.colorscheme "catppuccin-latte"
