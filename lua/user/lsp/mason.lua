@@ -44,20 +44,3 @@ for _, server in pairs(servers) do
 	lspconfig[server].setup(opts)
 end
 
--- pyright settings
-local lspconfig = require('lspconfig')
-
--- lspconfig.pyright.setup({
--- analysis = { diagnosticMode = "off", typeCheckingMode = "off" },
---   root_dir = function(fname)
---     return vim.loop.cwd() -- Keeps the root directory fixed to the current working directory
---   end,
--- })
--- lspconfig.pyright.setup{
--- 	root_dir = function(fname)
--- 	  local util = require'lspconfig.util'
--- 	  return util.root_pattern('requirements.txt', 'README.md', '.git', 'readme.md')(fname)
--- 		  or util.path.dirname(fname)
--- 	end,
---   }
-
