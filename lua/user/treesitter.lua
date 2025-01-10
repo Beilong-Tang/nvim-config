@@ -17,6 +17,21 @@ configs.setup {
     enable = true,
     enable_autocmd = false,
   },
+  rainbow = {
+    enable = true,
+    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    colors = {
+      "#D3D3D3",  -- soft white
+      "#FF6A00",  -- orange
+      "#FF87FF",  -- magenta
+      "#D7AFFF",  -- light purple
+      "#AFD7FF",  -- light blue
+      "#FFD700",  -- yellow
+      "#87AF87",  -- soft green
+    }
+    -- termcolors = {} -- table of colour name strings
+  }
 }
-
 vim.cmd([[ autocmd BufRead,BufNewFile *.slurm,*.sbatch setfiletype sh ]])
