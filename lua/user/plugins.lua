@@ -82,10 +82,14 @@ return packer.startup(function(use)
 
   use "lewis6991/gitsigns.nvim"
 
+  --Treesitter
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
   }
+    --Rainbow
+  use 'p00f/nvim-ts-rainbow'
+  
   use 'JoosepAlviste/nvim-ts-context-commentstring'
 
   use "stevearc/conform.nvim"
