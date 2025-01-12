@@ -88,7 +88,7 @@ return packer.startup(function(use)
     run = ":TSUpdate",
   }
     --Rainbow
-  use 'p00f/nvim-ts-rainbow'
+  use 'HiPhish/rainbow-delimiters.nvim'
   
   use 'JoosepAlviste/nvim-ts-context-commentstring'
 
