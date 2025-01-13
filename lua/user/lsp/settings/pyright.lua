@@ -1,11 +1,11 @@
 return {
   autostart = true,
   on_attach = function(client, bufnr)
-    print("[]LSP attached to buffer: ", bufnr)
+    print("[LSP] attached to buffer: ", bufnr)
   end,
   root_dir = function(fname)
     local cwd = vim.fn.getcwd()
-    print("Resolved root_dir: ", cwd)
+    print("[Pyright]Resolved root_dir: ", cwd)
     return cwd
   end,
   settings = {
