@@ -1,6 +1,12 @@
 return {
+  autostart = true,
+  on_attach = function(client, bufnr)
+    print("[LSP] attached to buffer: ", bufnr)
+  end,
   root_dir = function(fname)
-    return vim.loop.cwd() -- Keeps the root directory fixed to the current working directory
+    local cwd = vim.fn.getcwd()
+    print("[Pyright]Resolved root_dir: ", cwd)
+    return cwd
   end,
   settings = {
     python = {
