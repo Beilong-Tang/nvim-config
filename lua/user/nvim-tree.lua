@@ -64,17 +64,21 @@ nvim_tree.setup({
         --[[ height = 30, ]]
         --[[ hide_root_folder = false, ]]
         side = "left",
-        --[[ auto_resize = true, ]]
+        -- [[ auto_resize = true, ]]
         --[[ mappings = { ]]
         --[[     custom_only = false, ]]
         --[[     }, ]]
         number = false,
         relativenumber = false,
+        preserve_window_proportions = false,
     },
     actions = {
         change_dir={
         enable = true,
-    }
+    },
+    open_file = {
+        resize_window = true,  -- Prevents resizing the tree window when opening a file
+      },
         --[[ quit_on_open = true, ]]
         --[[ window_picker = { enable = true }, ]]
     },
