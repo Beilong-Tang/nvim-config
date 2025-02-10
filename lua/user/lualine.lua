@@ -74,7 +74,7 @@ lualine.setup({
 	sections = {
 		lualine_a = { branch, diagnostics },
 		lualine_b = { mode },
-		lualine_a = {
+		lualine_c= {
 			{
 			  'filename',
 			  file_status = true, -- displays file status (readonly status, modified status)
