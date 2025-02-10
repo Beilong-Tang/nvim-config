@@ -26,3 +26,9 @@ require "user.server" -- # Enable copy on a server
 
 -- -- setup must be called before loading
 -- vim.cmd.colorscheme "catppuccin-latte"
+
+-- function g:open_browser(url) abort
+--     " open url here
+--   endfunction
+  
+--   let g:mkdp_browserfunc = 'g:open_browser'

@@ -74,7 +74,13 @@ lualine.setup({
 	sections = {
 		lualine_a = { branch, diagnostics },
 		lualine_b = { mode },
-		lualine_c = {"filename"},
+		lualine_a = {
+			{
+			  'filename',
+			  file_status = true, -- displays file status (readonly status, modified status)
+			  path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
+			}
+		  },
 		-- lualine_x = { "encoding", "fileformat", "filetype" },
 		lualine_x = { diff, spaces, "encoding", filetype },
 		lualine_y = { location },
