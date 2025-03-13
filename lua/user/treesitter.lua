@@ -1,6 +1,6 @@
 local configs = require("nvim-treesitter.configs")
 configs.setup {
-  ensure_installed = {"python"},
+  ensure_installed = {"python", "html"},
   sync_install = false, 
   ignore_install = { "" }, -- List of parsers to ignore installing
   autopairs = {
@@ -82,3 +82,5 @@ vim.g.rainbow_delimiters = {
     },
     highlight = groups,
 }
+
+

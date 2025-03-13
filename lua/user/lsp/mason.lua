@@ -1,5 +1,5 @@
 local servers = {
-	"pyright","bashls" 
+	"pyright","bashls", "html"
 }
 
 local settings = {

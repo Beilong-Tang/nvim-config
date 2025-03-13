@@ -15,6 +15,9 @@ require "user.nvim-tree"
 require "user.lsp"
 require "user.black"
 
+
+-- Disable italics for specific highlight groups
+
 -- If on a server, can enable this 
 require "user.gitsigns" -- # This is disabled due to performance issues on local machine. It should be fine on server.
 require "user.server" -- # Enable copy on a server
@@ -32,3 +35,11 @@ require "user.server" -- # Enable copy on a server
 --   endfunction
   
 --   let g:mkdp_browserfunc = 'g:open_browser'
+
+
+-- Disable italic for HTML attribute highlights
+vim.api.nvim_set_hl(0, '@tag.attribute', { italic = false }) -- TreeSitter group
+vim.api.nvim_set_hl(0, 'htmlArg', { italic = false })        -- Built-in HTML syntax group
+
+-- For markdown preview, do not close the window after changing buffer.
+vim.g.mkdp_auto_close = 0
