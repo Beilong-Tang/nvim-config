@@ -21,6 +21,7 @@ local function my_on_attach(bufnr)
 end
 
 nvim_tree.setup({
+    wrap = false,
     -- disable_netrw = true,
     -- hijack_netrw = true,
     -- respect_buf_cwd = true,

@@ -13,13 +13,14 @@ require "user.lualine"
 require "user.toggleterm"
 require "user.nvim-tree"
 require "user.lsp"
+print("lsp setting completed")
 require "user.black"
 
 
 -- Disable italics for specific highlight groups
 
 -- If on a server, can enable this 
--- require "user.gitsigns" -- # This is disabled due to performance issues on local machine. It should be fine on server.
+require "user.gitsigns" -- # This is disabled due to performance issues on local machine. It should be fine on server.
 -- require "user.server" -- # Enable copy on a server
 
 
@@ -28,7 +29,7 @@ require "user.black"
 -- })
 
 -- -- setup must be called before loading
--- vim.cmd.colorscheme "catppuccin-latte"
+vim.cmd.colorscheme "catppuccin-latte"
 
 -- function g:open_browser(url) abort
 --     " open url here
