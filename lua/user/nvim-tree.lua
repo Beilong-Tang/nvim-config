@@ -21,7 +21,7 @@ local function my_on_attach(bufnr)
 end
 
 nvim_tree.setup({
-    wrap = false,
+    -- wrap = false,
     -- disable_netrw = true,
     -- hijack_netrw = true,
     -- respect_buf_cwd = true,
@@ -57,8 +57,9 @@ nvim_tree.setup({
         ignore_list = {},
     },
     git = {
-        enable = false,
-        -- timeout = 400,
+        enable = true,
+        ignore = true,
+        timeout = 400,
     },
     view = {
         width = 30,
@@ -84,14 +85,14 @@ nvim_tree.setup({
         --[[ window_picker = { enable = true }, ]]
     },
     renderer = {
-        highlight_git = false,
+        highlight_git = true,
         root_folder_modifier = ":t",
         icons = {
             show = {
                 file = true,
                 folder = true,
                 folder_arrow = true,
-                git = false,
+                git = true,
             },
             glyphs = {
                 default = "",

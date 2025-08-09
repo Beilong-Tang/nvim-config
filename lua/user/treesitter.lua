@@ -43,7 +43,7 @@ local rainbow_delimiters = require 'rainbow-delimiters'
 -- Define custom colors for RainbowDelimiter
 local colors = {
   "#D3D3D3", -- soft white
-  "#FF6A00",  -- orange
+  "#f17e2c",  -- orange
   "#FF87FF",  -- magenta (pink)
   "#FFD700",  -- yellow
   "#87CEEB",  -- sky blue (changed from blue)

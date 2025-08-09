@@ -28,6 +28,19 @@ require "user.gitsigns" -- # This is disabled due to performance issues on local
 --     no_italic = true, -- Force no italic
 -- })
 
+require("catppuccin").setup {
+    color_overrides = {
+        latte = {
+            base = "#fafafa",
+            mantle = "#eaeaea",
+            -- crust = "#ffffff",
+        },
+        frappe = {},
+        macchiato = {},
+        mocha = {},
+    }
+}
+
 -- -- setup must be called before loading
 vim.cmd.colorscheme "catppuccin-latte"
 
