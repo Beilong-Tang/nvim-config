@@ -40,6 +40,9 @@ nvim_tree.setup({
     --     enable = false,
     --     auto_open = true,
     -- },
+    filters = {
+        dotfiles = false,
+    },
     diagnostics = {
         enable = true,
         icons = {
