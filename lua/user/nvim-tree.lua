@@ -40,6 +40,15 @@ nvim_tree.setup({
     --     enable = false,
     --     auto_open = true,
     -- },
+    update_focused_file = {
+      enable = true,
+      update_cwd = false,
+      ignore_list = {},
+  },
+
+  filesystem_watchers = {
+      enable = true,
+  },
     filters = {
         dotfiles = false,
     },
@@ -82,7 +91,7 @@ nvim_tree.setup({
         enable = true,
     },
     open_file = {
-        resize_window = true,  -- Prevents resizing the tree window when opening a file
+        resize_window = false,  -- Prevents resizing the tree window when opening a file
       },
         --[[ quit_on_open = true, ]]
         --[[ window_picker = { enable = true }, ]]

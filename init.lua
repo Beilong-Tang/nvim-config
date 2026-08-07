@@ -14,7 +14,7 @@ require "user.toggleterm"
 require "user.nvim-tree"
 require "user.lsp"
 print("lsp setting completed")
-require "user.black"
+--[[ require "user.black" ]]
 
 
 -- Disable italics for specific highlight groups
@@ -42,7 +42,8 @@ require("catppuccin").setup {
 }
 
 -- -- setup must be called before loading
-vim.cmd.colorscheme "catppuccin-latte"
+--[[ vim.cmd.colorscheme "catppuccin-latte" ]]
+vim.cmd.colorscheme "darkplus"
 
 -- function g:open_browser(url) abort
 --     " open url here
