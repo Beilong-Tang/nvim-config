@@ -1,0 +1,8 @@
+{
+  "plugins": {
+    "vimtex": {
+      "rev": "9f6a5bb0a9c9f1542fe88dc07511ce8401242e2a",
+      "src": "https://github.com/lervag/vimtex"
+    }
+  }
+}

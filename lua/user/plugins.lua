@@ -86,6 +86,7 @@ return packer.startup(function(use)
   --Treesitter
   use {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main", -- `master` is frozen and incompatible with nvim 0.12
     run = ":TSUpdate",
   }
     --Rainbow

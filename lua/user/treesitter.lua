@@ -1,39 +1,31 @@
-local configs = require("nvim-treesitter.configs")
-configs.setup {
-  ensure_installed = {"python", "html"},
-  sync_install = false, 
-  ignore_install = { "" }, -- List of parsers to ignore installing
-  autopairs = {
-		enable = true,
-	},
-  highlight = {
-    enable = true, -- false will disable the whole extension
-    disable = { "" }, -- list of language that will be disabled
-    additional_vim_regex_highlighting = true,
+-- nvim-treesitter `main` branch (required for nvim 0.12+). The old
+-- `nvim-treesitter.configs` module no longer exists; highlighting/indent are
+-- now enabled per buffer via a FileType autocmd.
+local ts_ok, ts = pcall(require, "nvim-treesitter")
+if not ts_ok then
+  return
+end
 
-  },
-  indent = { enable = true, disable = { "yaml" } },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
-  -- rainbow = {
-  --   enable = true,
-  --   -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-  --   extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-  --   max_file_lines = nil, -- Do not enable for files with more than n lines, int
-  --   colors = {
-  --     "#D3D3D3",  -- soft white
-  --     "#FF6A00",  -- orange
-  --     "#FF87FF",  -- magenta
-  --     "#D7AFFF",  -- light purple
-  --     "#AFD7FF",  -- light blue
-  --     "#FFD700",  -- yellow
-  --     "#87AF87",  -- soft green
-  --   }
-  --   -- termcolors = {} -- table of colour name strings
-  -- }
-}
+ts.setup {}
+-- Installs asynchronously; no-op for parsers that are already installed.
+-- Requires the `tree-sitter` CLI (brew install tree-sitter-cli).
+ts.install { "python", "html", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "bash", "json" }
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("user_treesitter", { clear = true }),
+  callback = function(args)
+    -- Only start when a parser exists for this filetype
+    if not pcall(vim.treesitter.start, args.buf) then
+      return
+    end
+    -- Keep regex syntax alongside treesitter (was additional_vim_regex_highlighting = true)
+    vim.bo[args.buf].syntax = "on"
+    if vim.bo[args.buf].filetype ~= "yaml" then
+      vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+  end,
+})
+
 vim.cmd([[ autocmd BufRead,BufNewFile *.slurm,*.sbatch setfiletype sh ]])
 
 
