@@ -21,7 +21,10 @@ print("lsp setting completed")
 
 -- If on a server, can enable this 
 require "user.gitsigns" -- # This is disabled due to performance issues on local machine. It should be fine on server.
--- require "user.server" -- # Enable copy on a server
+-- Over SSH, copy to the local machine clipboard via OSC 52
+if vim.env.SSH_TTY then
+  require "user.server"
+end
 
 
 -- require("catppuccin").setup({

@@ -6,25 +6,43 @@ if not ts_ok then
   return
 end
 
-ts.setup {}
--- Installs asynchronously; no-op for parsers that are already installed.
--- Requires the `tree-sitter` CLI (brew install tree-sitter-cli).
-ts.install { "python", "html", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "bash", "json" }
+local parsers = { "python", "html", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "bash", "json" }
 
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("user_treesitter", { clear = true }),
-  callback = function(args)
-    -- Only start when a parser exists for this filetype
-    if not pcall(vim.treesitter.start, args.buf) then
-      return
-    end
-    -- Keep regex syntax alongside treesitter (was additional_vim_regex_highlighting = true)
-    vim.bo[args.buf].syntax = "on"
-    if vim.bo[args.buf].filetype ~= "yaml" then
-      vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    end
-  end,
-})
+if ts.install then
+  -- `main` branch (nvim 0.12+)
+  ts.setup {}
+  -- Installs asynchronously; no-op for parsers that are already installed.
+  -- Requires the `tree-sitter` CLI (brew install tree-sitter-cli).
+  ts.install(parsers)
+
+  vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("user_treesitter", { clear = true }),
+    callback = function(args)
+      -- Only start when a parser exists for this filetype
+      if not pcall(vim.treesitter.start, args.buf) then
+        return
+      end
+      -- Keep regex syntax alongside treesitter (was additional_vim_regex_highlighting = true)
+      vim.bo[args.buf].syntax = "on"
+      if vim.bo[args.buf].filetype ~= "yaml" then
+        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end
+    end,
+  })
+else
+  -- `master` branch (nvim < 0.12)
+  require("nvim-treesitter.configs").setup {
+    ensure_installed = parsers,
+    sync_install = false,
+    highlight = {
+      enable = true,
+      -- vimtex provides its own LaTeX highlighting
+      disable = { "latex" },
+      additional_vim_regex_highlighting = true,
+    },
+    indent = { enable = true, disable = { "yaml" } },
+  }
+end
 
 vim.cmd([[ autocmd BufRead,BufNewFile *.slurm,*.sbatch setfiletype sh ]])
 

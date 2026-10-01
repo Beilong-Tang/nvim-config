@@ -1,10 +1,20 @@
 -- Managed by the built-in plugin manager (vim.pack, nvim 0.12+).
 -- Only call vim.pack.add once per plugin; to pin a release instead, use:
 --   vim.pack.add { { src = "https://github.com/lervag/vimtex", version = "v2.15" } }
-vim.pack.add { "https://github.com/lervag/vimtex" }
+-- On nvim < 0.12 (no vim.pack), vimtex is installed by packer instead (see lua/user/plugins.lua).
+if vim.pack then
+  vim.pack.add { "https://github.com/lervag/vimtex" }
+end
 
--- Skim is the usual macOS viewer with SyncTeX support: brew install --cask skim
-vim.g.vimtex_view_method = "skim"
+if vim.fn.has "mac" == 1 then
+  -- Skim is the usual macOS viewer with SyncTeX support: brew install --cask skim
+  vim.g.vimtex_view_method = "skim"
+elseif vim.fn.executable "zathura" == 1 then
+  vim.g.vimtex_view_method = "zathura"
+else
+  -- Falls back to xdg-open (e.g. evince)
+  vim.g.vimtex_view_method = "general"
+end
 
 -- latexmk is the default compiler and is already installed, so no setting needed.
 -- vim.g.vimtex_compiler_method = "latexmk"

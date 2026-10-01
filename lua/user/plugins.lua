@@ -86,7 +86,8 @@ return packer.startup(function(use)
   --Treesitter
   use {
     "nvim-treesitter/nvim-treesitter",
-    branch = "main", -- `master` is frozen and incompatible with nvim 0.12
+    -- `master` is frozen and incompatible with nvim 0.12; `main` requires 0.12
+    branch = vim.fn.has "nvim-0.12" == 1 and "main" or "master",
     run = ":TSUpdate",
   }
     --Rainbow
@@ -95,6 +96,12 @@ return packer.startup(function(use)
   use 'JoosepAlviste/nvim-ts-context-commentstring'
 
   use "stevearc/conform.nvim"
+
+  -- LaTeX. On nvim 0.12+ it is managed by vim.pack in plugin/vimtex.lua instead.
+  if not vim.pack then
+    -- Latest vimtex requires nvim 0.12.4; v2.18 is the last release supporting 0.10/0.11
+    use { "lervag/vimtex", tag = "v2.18" }
+  end
 
   -- install without yarn or npm
   use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
