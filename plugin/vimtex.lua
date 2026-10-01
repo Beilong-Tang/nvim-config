@@ -9,6 +9,9 @@ vim.g.vimtex_view_method = "skim"
 -- latexmk is the default compiler and is already installed, so no setting needed.
 -- vim.g.vimtex_compiler_method = "latexmk"
 
+-- Only pop up the quickfix window for errors, not warnings (still listed; open with <localleader>le)
+vim.g.vimtex_quickfix_open_on_warning = 0
+
 -- Uncomment to use "," for VimTeX mappings (,ll compile, ,lv view) instead of <Space>
 -- vim.g.maplocalleader = ","
 
