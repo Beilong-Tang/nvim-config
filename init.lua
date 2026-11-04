@@ -46,7 +46,7 @@ end
 
 -- -- setup must be called before loading
 --[[ vim.cmd.colorscheme "catppuccin-latte" ]]
-vim.cmd.colorscheme "catppuccin-latte"
+vim.cmd.colorscheme "catppuccin-mocha"
 
 -- function g:open_browser(url) abort
 --     " open url here
