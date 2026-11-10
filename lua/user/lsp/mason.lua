@@ -1,3 +1,9 @@
+-- User-local Node.js (~/.local/node) provides pyright-langserver (npm install -g pyright)
+local node_bin = vim.fn.expand "~/.local/node/bin"
+if vim.fn.isdirectory(node_bin) == 1 and not vim.env.PATH:find(node_bin, 1, true) then
+	vim.env.PATH = node_bin .. ":" .. vim.env.PATH
+end
+
 local servers = {
 	"pyright"
 }
