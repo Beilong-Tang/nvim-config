@@ -101,6 +101,8 @@ return packer.startup(function(use)
   if not vim.pack then
     -- Latest vimtex requires nvim 0.12.4; v2.18 is the last release supporting 0.10/0.11
     use { "lervag/vimtex", tag = "v2.18" }
+    -- Markdown rendering; on nvim 0.12+ managed by vim.pack in plugin/markdown.lua
+    use "MeanderingProgrammer/render-markdown.nvim"
   end
 
   -- install without yarn or npm
