@@ -9,6 +9,14 @@ require("conform").setup({
     -- Skip until the buffer has actually been edited since it was opened.
     -- Once edited, format-on-save stays active for that buffer.
     local b = vim.b[bufnr]
+    -- Off by default; buffer setting overrides the global one
+    local enabled = b.autoformat
+    if enabled == nil then
+      enabled = vim.g.autoformat
+    end
+    if not enabled then
+      return
+    end
     if not b.format_armed then
       if b.format_initial_tick and b.format_initial_tick == b.changedtick then
         return
@@ -35,3 +43,21 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.keymap.set({ "n", "v" }, "<leader>b", function()
   require("conform").format({ async = true, lsp_format = "never" })
 end, { desc = "Format buffer" })
+
+-- Toggle format-on-save. :FormatToggle = this buffer, :FormatToggle! = globally
+vim.api.nvim_create_user_command("FormatToggle", function(args)
+  local scope = args.bang and vim.g or vim.b
+  local current = scope.autoformat
+  if current == nil then
+    current = vim.g.autoformat or false
+  end
+  scope.autoformat = not current
+  vim.notify(
+    ("Format on save %s (%s)"):format(
+      scope.autoformat and "enabled" or "disabled",
+      args.bang and "global" or "buffer"
+    )
+  )
+end, { bang = true, desc = "Toggle format on save" })
+
+vim.keymap.set("n", "<leader>B", "<cmd>FormatToggle<cr>", { desc = "Toggle format on save (buffer)" })
