@@ -73,7 +73,7 @@ keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 -- keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
 -- full relative path (no "smart" … shortening) in a dropdown 90% of the screen wide
-keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false, path_display = {}, layout_config = { width = 0.9 } }))<cr>", opts)
+keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false, path_display = {}, layout_config = { width = 0.9, height = 0.7 } }))<cr>", opts)
 keymap("n", "<leader>t", "<cmd>Telescope live_grep<cr>", opts)
 
 -- Nvimtree
@@ -81,6 +81,11 @@ keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 
 -- bufferline
 keymap('n', '<leader>j', '<Cmd>BufferLinePick<CR>', { noremap = true, silent = true })
+-- Move the current buffer's tab left/right in the bufferline
+keymap("n", "<leader>H", "<Cmd>BufferLineMovePrev<CR>", opts)
+keymap("n", "<leader>L", "<Cmd>BufferLineMoveNext<CR>", opts)
+-- Kill current buffer (force, keeps window layout via vim-bbye)
+keymap("n", "<leader>x", "<Cmd>Bdelete!<CR>", opts)
 
 
 -- Ctrl+s to save
