@@ -152,11 +152,22 @@ vim.api.nvim_create_autocmd("WinResized", {
     end,
 })
 
-local function resize_tree(delta)
-    tree_width = math.max(10, tree_width + delta)
+-- :TreeWidth 40   -> set width to 40
+-- :TreeWidth +10  -> 10 wider,  :TreeWidth -10 -> 10 narrower
+-- :TreeWidth      -> show current width
+vim.api.nvim_create_user_command("TreeWidth", function(o)
+    local arg = o.args
+    if arg == "" then
+        print("NvimTree width: " .. tree_width)
+        return
+    end
+    local n = tonumber(arg)
+    if not n then
+        vim.notify("TreeWidth: expected N, +N or -N", vim.log.levels.ERROR)
+        return
+    end
+    if arg:match("^[+-]") then n = tree_width + n end
+    tree_width = math.max(10, n)
     local win = tree_win()
     if win then vim.api.nvim_win_set_width(win, tree_width) end
-end
-
-vim.keymap.set("n", "<leader>>", function() resize_tree(5) end,  { desc = "NvimTree wider" })
-vim.keymap.set("n", "<leader><", function() resize_tree(-5) end, { desc = "NvimTree narrower" })
+end, { nargs = "?", desc = "Set NvimTree width (N, +N, -N)" })
