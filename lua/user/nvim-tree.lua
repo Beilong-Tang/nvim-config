@@ -20,6 +20,9 @@ local function my_on_attach(bufnr)
   vim.keymap.set('n', '<C-z>',   api.node.open.horizontal,            opts('Open: Horizontal Split'))
 end
 
+-- current tree width; updated on resize so toggling keeps it (see bottom of file)
+local tree_width = 30
+
 nvim_tree.setup({
     -- wrap = false,
     -- disable_netrw = true,
@@ -74,7 +77,7 @@ nvim_tree.setup({
         timeout = 400,
     },
     view = {
-        width = 30,
+        width = function() return tree_width end,
         --[[ height = 30, ]]
         --[[ hide_root_folder = false, ]]
         side = "left",
@@ -129,3 +132,31 @@ nvim_tree.setup({
         }
     }
 })
+
+-- ---------------------------------------------------------------------------
+-- Keep tree width across toggles + shortcuts to resize it
+-- ---------------------------------------------------------------------------
+local function tree_win()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "NvimTree" then
+            return win
+        end
+    end
+end
+
+-- remember width whenever the tree window is resized (mouse drag, <C-w>< / <C-w>>, ...)
+vim.api.nvim_create_autocmd("WinResized", {
+    callback = function()
+        local win = tree_win()
+        if win then tree_width = vim.api.nvim_win_get_width(win) end
+    end,
+})
+
+local function resize_tree(delta)
+    tree_width = math.max(10, tree_width + delta)
+    local win = tree_win()
+    if win then vim.api.nvim_win_set_width(win, tree_width) end
+end
+
+vim.keymap.set("n", "<leader>>", function() resize_tree(5) end,  { desc = "NvimTree wider" })
+vim.keymap.set("n", "<leader><", function() resize_tree(-5) end, { desc = "NvimTree narrower" })
