@@ -171,3 +171,6 @@ vim.api.nvim_create_user_command("TreeWidth", function(o)
     local win = tree_win()
     if win then vim.api.nvim_win_set_width(win, tree_width) end
 end, { nargs = "?", desc = "Set NvimTree width (N, +N, -N)" })
+
+-- short alias: :TW 40 / :TW +10 / :TW -10 / :TW
+vim.api.nvim_create_user_command("TW", "TreeWidth <args>", { nargs = "?", desc = "Alias for :TreeWidth" })

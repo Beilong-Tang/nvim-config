@@ -27,10 +27,32 @@ toggleterm.setup({
 	},
 })
 
+-- True if the terminal's foreground program is a vim-like TUI that needs <esc> itself
+local passthrough_progs = { nvim = true, vim = true, vi = true, lazygit = true, htop = true }
+local function fg_wants_esc()
+  local pid = vim.b.terminal_job_pid
+  if not pid then return false end
+  -- the job itself (e.g. lazygit terminal) plus its direct children (`nvim file` from the shell, `git commit` -> vim)
+  local out = vim.fn.system({ "ps", "-o", "comm=", "-p", tostring(pid), "--ppid", tostring(pid) })
+  for name in out:gmatch("[^\n]+") do
+    if passthrough_progs[vim.trim(name)] then return true end
+  end
+  return false
+end
+
+local function smart_exit(key)
+  return function()
+    if fg_wants_esc() then
+      return key -- send the key through to the inner program
+    end
+    return [[<C-\><C-n>]]
+  end
+end
+
 function _G.set_terminal_keymaps()
   local opts = {noremap = true}
-  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<esc>', smart_exit('<esc>'), { buffer = 0, expr = true })
+  vim.keymap.set('t', 'jk', smart_exit('jk'), { buffer = 0, expr = true })
   vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
