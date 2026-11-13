@@ -57,6 +57,9 @@ function _G.set_terminal_keymaps()
   vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
+  -- Opt+Left/Right: send Meta-b/Meta-f (word motion) instead of CSI 1;3D/C, which the shell doesn't understand
+  vim.keymap.set('t', '<M-Left>', '<M-b>', { buffer = 0, desc = 'Terminal: word back' })
+  vim.keymap.set('t', '<M-Right>', '<M-f>', { buffer = 0, desc = 'Terminal: word forward' })
 end
 
 -- Only toggleterm terminals; leave other terminals (e.g. claudecode.nvim) alone so <esc> reaches the program
