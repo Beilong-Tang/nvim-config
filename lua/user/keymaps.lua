@@ -92,3 +92,8 @@ keymap("n", "<leader>x", "<Cmd>Bdelete!<CR>", opts)
 vim.cmd "nmap <c-s> :w<CR>"
 vim.cmd "imap <c-s> <Esc>:w<CR>a"
 
+
+-- Keep auto-indent when leaving insert mode on a fresh line (o/O) without typing.
+-- Vim strips unused autoindent on <Esc>; typing then deleting a char makes it stick.
+keymap("n", "o", "ox<BS>", opts)
+keymap("n", "O", "Ox<BS>", opts)
