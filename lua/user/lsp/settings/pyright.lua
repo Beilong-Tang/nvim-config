@@ -13,6 +13,17 @@ return {
     }) or vim.fn.getcwd()
     on_dir(root)
   end,
+  -- Point pyright at the active conda/venv python (fallback: bltang_py310),
+  -- so imports like torch resolve instead of using base / system python.
+  before_init = function(_, config)
+    local prefix = vim.env.VIRTUAL_ENV or vim.env.CONDA_PREFIX
+    if not prefix or prefix == "/opt/anaconda3" then
+      prefix = "/opt/anaconda3/envs/bltang_py310"
+    end
+    config.settings = config.settings or {}
+    config.settings.python = config.settings.python or {}
+    config.settings.python.pythonPath = prefix .. "/bin/python"
+  end,
   settings = {
     python = {
       analysis = {
