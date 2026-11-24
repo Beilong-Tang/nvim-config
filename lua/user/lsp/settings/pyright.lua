@@ -20,9 +20,30 @@ return {
     if not prefix or prefix == "/opt/anaconda3" then
       prefix = "/opt/anaconda3/envs/bltang_py310"
     end
-    config.settings = config.settings or {}
+    -- Copy so per-root changes (exclude list below) don't leak into other clients.
+    config.settings = vim.deepcopy(config.settings or {})
     config.settings.python = config.settings.python or {}
     config.settings.python.pythonPath = prefix .. "/bin/python"
+
+    -- Also exclude every directory git ignores (.gitignore, .git/info/exclude,
+    -- global excludes). `--directory` collapses fully-ignored dirs to one entry.
+    local root = config.root_dir
+    if root and vim.fn.executable("git") == 1 then
+      local res = vim.system(
+        { "git", "ls-files", "--others", "--ignored", "--exclude-standard", "--directory" },
+        { cwd = root, text = true }
+      ):wait()
+      if res.code == 0 and res.stdout then
+        local analysis = config.settings.python.analysis or {}
+        config.settings.python.analysis = analysis
+        analysis.exclude = analysis.exclude or {}
+        for line in res.stdout:gmatch("[^\n]+") do
+          if line:sub(-1) == "/" then
+            table.insert(analysis.exclude, line:sub(1, -2))
+          end
+        end
+      end
+    end
   end,
   settings = {
     python = {
